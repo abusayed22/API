@@ -8,6 +8,7 @@ const start = async() => {
     try {
         await connectDb(process.env.Mongoose_url)
         await blogs.create(blogsJson);
+        await blogs.deleteMany();
 
     } catch (error) {
         console.log(error);

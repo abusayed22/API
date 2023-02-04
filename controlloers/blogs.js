@@ -3,7 +3,14 @@ const blogModel = require('../models/blog');
 
 
 const getAllBlogs = async(req,res) => {
-    const myData = await blogModel.find(req.query);
+    const {name} = req.query
+    const queryObject = {}
+
+    if(name) {
+        queryObject.name = name;
+    }
+
+    const myData = await blogModel.find(queryObject);
     
     res.status(200).json({myData})
 }
