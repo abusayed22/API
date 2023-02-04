@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require("./db/connect")
+require("dotenv").config();
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use("/api/blogs", blog_route);
 
 const start = async () => {
     try {
-        await connectDB();
+        await connectDB(process.env.Mongoose_url);
         app.listen(port, () => {
             console.log(`${port} yes i am connected`);
         })  
