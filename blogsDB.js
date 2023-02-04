@@ -14,15 +14,5 @@ const start = async() => {
     }
 }
 
-// const start = async () => {
-//     try {
-//         await connectDB(process.env.Mongoose_url);
-//         app.listen(port, () => {
-//             console.log(`${port} yes i am connected`);
-//         })  
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 
 start();
