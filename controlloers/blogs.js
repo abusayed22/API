@@ -5,7 +5,7 @@ const blogModel = require('../models/blog');
 const getAllBlogs = async (req, res) => {
 
     // TODO:
-    const { name, heading, contend } = req.query
+    const { name, heading, contend,sort ,select} = req.query
     const queryObject = {}
     if (name) {
         queryObject.name = {$regex: name, $options: 'i'};
@@ -18,11 +18,19 @@ const getAllBlogs = async (req, res) => {
 
     let apiData = blogModel.find(queryObject)
 
-    if(queryObject.sort) {
+    if(sort) {
         let sortFix = sort.replace(",", " ")
         apiData = apiData.sort(sortFix)
         // queryObject.sort = sortFix;
     }
+
+    if(select) {
+        // let sortFix = select.replace(",", " ")
+        let sortFix = select.split(",").join(" ")
+        apiData = apiData.select(sortFix)
+    }
+
+
     const myData = await apiData;
 
     res.status(200).json({ myData })
