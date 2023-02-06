@@ -11,15 +11,19 @@ const getAllBlogs = async (req, res) => {
         queryObject.name = {$regex: name, $options: 'i'};
     }
 
-    if (heading) {
-        queryObject.heading = heading
-    }
-    if (contend) {
-        queryObject.contend = contend
-    }
+    
+    
     // TODO:
 
-    const myData = await blogModel.find(queryObject);
+
+    let apiData = blogModel.find(queryObject)
+
+    if(queryObject.sort) {
+        let sortFix = sort.replace(",", " ")
+        apiData = apiData.sort(sortFix)
+        // queryObject.sort = sortFix;
+    }
+    const myData = await apiData;
 
     res.status(200).json({ myData })
 }
